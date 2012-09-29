@@ -5,11 +5,15 @@
  *	@desc 
  *	Support structures for fast I/O in C
  *
+ *	@note Initialize in = stdin and out = stdout in your main() function
+ *
 **/
 
-const int i_size = 512, o_size = 51200;
+#define i_size 512
+#define o_size 51200
+
 int i_offset, i_max, o_offset;
-char ibuffer[ 512 ], obuffer[ 51200 ];
+char ibuffer[ i_size ], obuffer[ o_size ];
 FILE *in, *out;
 		
 char read_char(){
@@ -44,6 +48,13 @@ void write_char(char ch){
 	if( ! ( o_offset ^ o_size ) )
 		flush();
 	obuffer[o_offset++] = ch;
+}
+
+void write_str( const char *str, int len ){
+	if( o_offset + len > o_size )
+		flush();
+	for( const char* p = str; *p; p++ )
+		obuffer[o_offset++] = *p;
 }
 
 void write_int(int v, char ch){
