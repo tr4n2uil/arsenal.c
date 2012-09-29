@@ -73,3 +73,60 @@ for( int i = 0; i < N; i++ )
 	if( max < tr[ N - 1 ][ i ] )
 		max = tr[ N - 1 ][ i ];
 
+/**
+ *
+ *	@dp04
+ *	Largest Non Consecutive Subsequence: Given a sequence of N integers, devise an algorithm to 
+ *	find a sub-sequence S[] for which sum of its elements is maximum and such that S contains no two consecutive elements from input sequence
+ *
+**/
+
+int largest_non_consecutive(int input[], int N, int output[]){
+	int sum[ N ], k=0, i;
+
+	sum[ 0 ] = input[ 0 ];
+
+	if(input[ 1 ] > input[ 0 ]){
+		sum[ 1 ] =  input[ 1 ];
+		output[ k++ ] = input[ 1 ];
+	}
+	else {
+		sum[ 1 ] =  input[ 0 ];
+		output[ k++ ] = input[ 0 ];
+	}
+
+	for( i = 2; i ^ N; i++ ){
+		if( sum[ i - 1 ] > input[ i ] + sum[ i - 2 ] ){
+			sum[ i ] =  sum[ i - 1 ];
+		}
+		else {
+			sum[ i ] = input[ i ] + sum[ i - 2 ];
+			output[ k++ ] = input[ i ];
+		}
+	}
+
+	return sum[ N - 1 ];
+}
+
+/**
+ *
+ *	@dp05
+ *	Largest Non 3 Consecutive Subsequence: Given a sequence of N integers, devise an algorithm to 
+ *	find a sub-sequence S[] for which sum of its elements is maximum and such that S contains no three consecutive elements from input sequence
+ *
+**/
+
+int max_three(int[] input, int N){
+	int sum[] = new int[ N + 2 ], i;
+	
+	sum[ 0 ] = 0;
+	sum[ 1 ] = input[ 0 ];
+	sum[ 2 ] = input[ 0 ] + input[ 1 ];
+	
+	for( i = 2; i ^ N; i++ ){
+		sum[ i + 1 ] = max( input[ i ] + sum[ i - 1 ], input[ i ] + input[ i - 1 ] + sum[ i - 2 ]);
+		sum[ i + 1 ] = max( sum[ i + 1 ], sum[ i ] );
+	}
+
+	return sum[ N ];
+}
