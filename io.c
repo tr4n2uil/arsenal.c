@@ -51,14 +51,15 @@ void write_char(char ch){
 }
 
 void write_str( const char *str, int len ){
+	const char* p = str;
 	if( o_offset + len > o_size )
 		flush();
-	for( const char* p = str; *p; p++ )
+	for( p = str; *p; p++ )
 		obuffer[o_offset++] = *p;
 }
 
 void write_int(int v, char ch){
-	if( o_offset + 5 > o_size ) flush();
+	if( o_offset + 11 > o_size ) flush();
 	if (v < 100000) {
 		if (v < 1000) {
 			if (v < 10) {

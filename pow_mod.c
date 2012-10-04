@@ -19,5 +19,5 @@ long long pow_mod( long long B, long long E, long long M ){
 		B = B*B % M;
 	}
 	
-	return r;
+	return R;
 }

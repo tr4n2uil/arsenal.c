@@ -62,7 +62,7 @@ class IO {
 		}
 		
 		inline void write_int(int v, char ch){
-			//if( o_offset + 11 > sizeof(obuffer) ) flush();
+			if( o_offset + 11 > sizeof(obuffer) ) flush();
 			if(ch) obuffer[o_offset++] = ch;
 			if (v < 100000) {
 				if (v < 1000) {
